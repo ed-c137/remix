@@ -1,0 +1,133 @@
+.navbar{
+    >div{
+        @include media-breakpoint-up(xl){
+            margin-bottom: 50px;
+        }
+        @include media-breakpoint-up(lg){
+            .navbar__nav .navbar__nav-list{
+                left: -25%;
+            }
+            > * {
+               flex: 1;
+            }
+        }
+    }
+}
+
+.navbar__nav{
+    max-height: 0;
+    overflow: hidden;
+    z-index: $zindex-dropdown;
+    flex-direction: column;
+    left: 0;
+    right: 0;
+    padding: inherit;
+    background: white;
+    top:50px;
+    &-list{
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 25px;
+        
+        // padding-right: 10px;
+        background: v(content-background);
+        width: 100%;
+        left: 0;
+        top: 40px;
+        // max-height: 0;
+        overflow: hidden;
+        transition: max-height .3s, padding .3s;
+        padding: 0 10px;
+        
+        // @include media-breakpoint-up(sm){
+        //     position: relative;
+            
+            
+        // }
+        @include media-breakpoint-up(lg){
+            position: relative;
+            left: 0;
+            top: 0px;
+            display: flex;
+            max-height: 400px;
+            width: auto;
+            background: v(app-background);
+            >li:not(:first-child){
+                margin-left: 10px;
+            }
+        }
+    }
+    &-item {
+        padding: 10px 0;
+        a{
+            color: v(text-muted);
+        }
+    }
+    
+    @include media-breakpoint-up(xl){
+        
+    }
+
+    &_btnwrap{
+       button{
+        color: v(light);
+        background: v(app-background);
+        border: none;
+        cursor: pointer;
+       }
+    }
+
+    .sign-in{
+        display: block;
+        margin: auto;
+    }
+
+    .mode-switch{
+        background: v(dark);
+        border-radius: 5px;
+        margin: 10px 0;
+        >*:not(:first-child){
+            margin-left: 10px;
+        }
+        .dark{
+            color: v(white);
+        }
+        .light{
+            color: v(color-ct-lower);
+        }
+        // .mode-switch-higlht{
+        //     background: v(gray-dark);
+        //     top: 0;
+        //     bottom: 0;
+        //     margin: 10px 13px;
+        //     z-index: -1;
+        //     left: 0;
+        //     border-radius: inherit;
+          
+        // }
+        &::before{
+            content: "";
+            display: inline-block;
+            background: v(gray-dark);
+            top: 0;
+            bottom: 0;
+            margin: 10px 13px;
+            z-index: -1;
+            left: 0;
+            border-radius: inherit;
+            width: 44%;
+            position: absolute;
+        }
+
+        
+    }
+}
+.navbar-open{
+    max-height: 400px;
+    // padding: 10px;
+}
+
+.navbar__nav-open{
+    max-height: 600px;
+}
+

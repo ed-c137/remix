@@ -1,0 +1,51 @@
+$grid-columns:      12;
+$grid-gutter-width: 1.5rem;
+
+//current values
+// 600 - tablet-portrait
+// 900 - tablet-landscape
+// 1200 - desktop
+// 1800 - big-desktop
+// $grid-breakpoints: (
+//   xs: 0,
+//   sm: 576px,
+//   md: 768px,
+//   lg: 992px,
+//   xl: 1200px,
+//   xxl: 1400px
+// );
+// $container-max-widths: (
+//   sm: 540px,
+//   md: 720px,
+//   lg: 960px,
+//   xl: 1140px,
+//   xxl: 1150px
+// );
+
+
+$container-max-widths: (
+  sm: 540px,
+  md: 720px,
+  lg: 960px,
+  xl: 1140px,
+  xxl: 1600px
+);
+
+$grid-breakpoints: (
+  xs: 0,
+  sm: 600px,//phone
+  md: 768px,//tablet-potrait
+  lg: 992px,//tablet-landscape
+  xl: 1200px,//desktop
+  xxl: 1800px//big-desktop
+);
+
+// $container-max-widths: (
+//   sm: 562.5px,
+//   md: 720px,
+//   lg: 843.75px,
+//   xl: 1125px,
+//   xxl: 1687.5px
+// );
+
+

@@ -1,0 +1,48 @@
+@import "./bootstrap/scss/functions";
+
+//some bootstrap overrides
+@import "base/overides";
+
+@import "./bootstrap/scss/variables";
+@import "./bootstrap/scss/mixins";
+
+// @import "../node_modules/bootstrap/scss/root";
+// @import "../node_modules/bootstrap/scss/reboot";
+// @import "../node_modules/bootstrap/scss/type";
+// @import "../node_modules/bootstrap/scss/images";
+@import "./bootstrap/scss/utilities";
+@import "./bootstrap/scss/containers";
+@import "./bootstrap/scss/grid";
+@import "./bootstrap/scss/navbar";
+@import "./bootstrap/scss/tables";
+
+@import "./bootstrap/scss/utilities/api";
+
+
+
+
+@import "abstracts/functions";
+@import "abstracts/variables";
+@import "abstracts/mixins";
+
+@import "base/animations";
+@import "base/base";
+@import "base/typography";
+@import "base/utilities";
+
+// @import "components/bg-video";
+// @import "components/button";
+// @import "components/card";
+// @import "components/composition";
+// @import "components/feature-box";
+// @import "components/form";
+// @import "components/popup";
+// @import "components/story";
+
+@import "layout/footer";
+// @import "layout/aside";
+// @import "layout/grid";
+@import "layout/header";
+// @import "layout/navigation";
+
+@import "pages/home";

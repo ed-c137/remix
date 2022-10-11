@@ -1,0 +1,724 @@
+@use "sass:map";
+
+@mixin clearfix {
+    &::after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+}
+
+@mixin absCenter {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+@mixin background-opacity($color, $opacity: 0.3) {
+    background: $color; /* The Fallback */
+    background: rgba($color, $opacity);
+}
+
+// quickly centre a block element
+@mixin push--auto {
+    margin: { 
+        left: auto;
+        right: auto;
+    }
+}
+
+// helpful while using pseudo elements
+@mixin pseudo($display: block, $pos: absolute, $content: ''){
+    content: $content;
+    display: $display;
+    position: $pos;
+}
+
+// use this for creating scalable elements (usually images / background images) that maintain a ratio.
+@mixin responsive-ratio($x,$y, $pseudo: false) {
+    $padding: unquote( ( $y / $x ) * 100 + '%' );
+    @if $pseudo {
+        &:before {
+            @include pseudo($pos: relative);
+            width: 100%;
+            padding-top: $padding;
+        }
+    } @else {
+        padding-top: $padding;
+    }
+}
+//eg. div {
+//     @include responsive-ratio(16,9);
+// }
+
+//  setting styles for a font. (This assumes you have already included the font), set your fallback font once
+@mixin font-source-sans($size: false, $colour: false, $weight: false,  $lh: false) {
+    font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif;
+    @if $size { font-size: $size; }
+    @if $colour { color: $colour; }
+    @if $weight { font-weight: $weight; }
+    @if $lh { line-height: $lh; }
+}
+
+
+$z-indexes: (
+    "outdated-browser",
+    "modal",
+    "site-header",
+    "page-wrapper",
+    "site-footer"
+);
+
+// Never loose track of your z-index values when working in several different files
+@function z($name) {
+    @if index($z-indexes, $name) {//index returns the index of the value in the array
+        @return (length($z-indexes) - index($z-indexes, $name)) + 1;
+    } @else {
+        @warn 'There is no item "#{$name}" in this list; choose one of: #{$z-indexes}';
+        @return null;
+    }
+}
+
+// Simple and effective for when you need to trigger hardware acceleration for some animation, keeping everything fast, slick and flicker-free.
+@mixin hardware($backface: true, $perspective: 1000) {
+    @if $backface {
+        backface-visibility: hidden;
+    }
+    perspective: $perspective;
+}
+
+// Adding Truncation to an element
+@mixin truncate($truncation-boundary) {
+    max-width: $truncation-boundary;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+// Hide from both screenreaders and browsers
+@mixin hidden {
+	display: none;
+	visibility: hidden;
+}
+
+@mixin visible($state: 'block') {
+	display: unquote($state);
+	visibility: visible;
+}
+
+// Hide only visually, but have it available for screenreaders
+@mixin vh($focusable: false) {
+	border: 0;
+	clip: rect(0 0 0 0);
+	height: 1px;
+	margin: -1px;
+	overflow: hidden;
+	padding: 0;
+	position: absolute;
+	width: 1px;
+
+	@if $focusable {
+		@include vh-focusable;
+	}
+}
+
+@mixin vh-reset {
+	clip: auto;
+	height: auto;
+	margin: 0;
+	overflow: visible;
+	position: static;
+	width: auto;
+}
+
+// Allow the element to be focusable when navigated to via the keyboard
+@mixin vh-focusable {
+	&:active,
+	&:focus {
+		clip: auto;
+		height: auto;
+		margin: 0;
+		overflow: visible;
+		position: static;
+		width: auto;
+	}
+}
+
+// Hide visually and from screenreaders, but maintain layout
+@mixin invisible {
+	visibility: hidden;
+}
+
+//Input Placeholder
+@mixin input-placeholder {
+	&.placeholder { @content; }
+	&:-moz-placeholder { @content; }
+	&::-moz-placeholder { @content; }
+	&:-ms-input-placeholder { @content; }
+	&::-webkit-input-placeholder { @content; }
+}
+
+/*
+	Form input placeholder text
+	example:
+	input,
+	textarea {
+		@include input-placeholder {
+			color: $grey;
+		}
+	}
+*/
+
+
+
+// Retina images
+@mixin retina {
+	@media only screen and (-webkit-min-device-pixel-ratio: 1.5),
+	only screen and (-moz-min-device-pixel-ratio: 1.5),
+	only screen and (-o-min-device-pixel-ratio: 3 / 2),
+	only screen and (min-device-pixel-ratio: 1.5),
+	only screen and (min-resolution: 1.5dppx) {
+		@content;
+	}
+}
+
+/*
+	
+	example:
+	.element {
+		@include retina {
+			background-image: url(../img/background@2x.png);
+		}
+	}
+*/
+
+
+// Content margins for removing first/last child margins
+@mixin content-margins($selector: '> *', $last-child: false) {
+	@if not $selector {
+		$selector: '&';
+	}
+
+	#{unquote($selector)} {
+		&:first-child { margin-top: 0; }
+		@if $last-child {
+			&:last-child { margin-bottom: 0; }
+		}
+	}
+}
+
+/*
+	
+	example: default
+	.element {
+		@include content-margins;
+	}
+	output:
+	.element > *:first-child {
+		margin-top: 0;
+	}
+	.element > *:last-child {
+		margin-bottom: 0;
+	}
+	example: empty selector
+	.element {
+		@include content-margins('false');
+	}
+	output:
+	.element:first-child {
+		margin-top: 0;
+	}
+	.element:last-child {
+		margin-bottom: 0;
+	}
+*/
+
+
+// Hide Text
+@mixin hide-text($break: false, $indent: 200%, $align: left, $overflow: hidden) {
+	@if $break {
+		position: absolute;
+		top: 0; left: 0;
+		pointer-events: none;
+	}
+	text: {
+		indent: $indent;
+		align: $align;
+	}
+	font-size: 0;
+	white-space: nowrap;
+	@if $overflow {
+		overflow: $overflow;
+	}
+}
+
+/*
+	
+	example:
+	.element {
+		@include hide-text;
+	}
+*/
+
+//Set Position along wiht hardware acceleration
+@mixin pos($pos, $t, $r, $b, $l, $z: false, $hardware: true) {
+	@if $pos == fixed and $hardware { @include hardware; }
+	@if $pos { position: $pos; }
+	@if $t { top: $t; }
+	@if $r { right: $r; }
+	@if $b { bottom: $b; }
+	@if $l { left: $l; }
+	@if $z { z-index: $z; }
+}
+
+//Set Anti-Aliasing for fonts
+@mixin antialias {
+	font-smoothing: antialiased;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+// Align Vertically
+@mixin align($vertical: true, $horizontal: false, $position: relative) {
+	@if $position {
+		position: $position;
+	}
+	@if $vertical {
+		top: 50%;
+	}
+	@if $horizontal {
+		left: 50%;
+	}
+
+	@if $vertical and $horizontal {
+		transform: translateX(-50%) translateY(-50%);
+	} @else if $vertical {
+		transform: translateY(-50%);
+	} @else {
+		transform: translateX(-50%);
+	}
+}
+
+
+// Fluid Property http://www.adrenalinmedia.com.au/the-agency/insights/this-changes-everything-css-fluid-properties.aspx
+
+@mixin fp($property, $min, $max, $start: 320, $end: breakpoint('desktop'), $clip: true, $clipAtStart: true, $clipAtEnd: true) {
+	$start: $start / ($start * 0 + 1);
+	$end: $end / ($end * 0 + 1);
+	$multiplier: ($max - $min) / ($end - $start) * 100;
+	$adder: ($min * $end - $max * $start) / ($end - $start);
+	$formula: calc(#{$multiplier + 0vw} + #{$adder + 0px});
+	@if $clip and $clipAtStart {
+		@media (max-width: #{$start + 0px}) {
+			#{$property}: $min + 0px;
+		}
+	}
+	@if $clip and $clipAtEnd {
+		@media (min-width: #{$end + 0px}) {
+			#{$property}: $max + 0px;
+		}
+	}
+	#{$property}: $formula;
+}
+/*
+	
+	HTML:
+	<h1 class="element">
+		<span>Text to replace</span>
+	</h1>
+	example:
+	h1 {
+		@include fp(font-size, 50, 100); // 50px at 320, 100px at 1920;
+	}
+	output:
+	h1 {
+		font-size: calc(3.125vw + 40px); //This is the magic!
+	}
+	@media (max-width:320px){ //Clips the start to the min value
+		font-size:50px;
+	}
+	@media (min-width:1920px){ //Clips the end to the max value
+		font-size:100px;
+	}
+*/
+
+
+@mixin unlist($margin: true, $padding: true) {
+	@if $margin {
+		@if $margin == 'vertical' {
+			@include flush--ends;
+		} @elseif $margin == 'horizontal' {
+			@include flush--sides;
+		} @else {
+			margin: 0;
+		}
+	}
+	@if $padding {
+		padding: 0;
+	}
+	list-style: none;
+}
+
+
+@mixin unselectable {
+	-webkit-touch-callout: none;
+	user-select: none;
+}
+
+@mixin appearance($val: none) {
+	-webkit-appearance: $val;
+	-moz-appearance: $val;
+	appearance: $val;
+}
+
+@mixin font-size($sizes) {
+	@each $breakpoint, $size in $sizes {
+		@if $breakpoint == base {
+			font-size: $size;
+		} @else {
+			// @include mq($breakpoint) {
+			// 	font-size: $size;
+			// }
+		}
+	}
+}
+
+
+// add/remove margins
+@mixin push--ends($spacing: $spacing-unit) { margin: { top: $spacing; bottom: $spacing; } }
+@mixin push--sides($spacing: $spacing-unit) { margin: { left: $spacing; right: $spacing; } }
+@mixin push--auto { margin: { left: auto; right: auto; } }
+@mixin offset--sides($spacing: $spacing-unit) { margin: { left: -$spacing; right: -$spacing; } }
+@mixin flush--ends { margin: { top: 0; bottom: 0; } }
+@mixin flush--sides { margin: { left: 0; right: 0; } }
+
+// add/remove paddings
+@mixin soft--ends($spacing: $spacing-unit) { padding: { top: $spacing; bottom: $spacing; } }
+@mixin soft--sides($spacing: $spacing-unit) { padding: { left: $spacing; right: $spacing; } }
+@mixin hard--ends { padding: { top: 0; bottom: 0; } }
+@mixin hard--sides { padding: { left: 0; right: 0; } }
+
+//returns half of the value
+@function half($num) {
+    @return $num / 2;
+}
+
+//returns the value minus
+@function negative($num) {
+    @return 0 - $num;
+   }
+
+@function halfnegative($num) {
+    @return negative(half($num));
+}
+
+// Photoshop letter spacing fix
+@function ls-basic($value) {
+    @return $value / 1000 * 1em;
+   }
+
+
+// convert css variable add the var(--variable) syntax
+@function v($propertyName: "", $argsFallbacks...) {
+    $fallbacksNb: length($argsFallbacks);
+    
+    @if $fallbacksNb < 1 {
+      @return var(--#{$propertyName});
+    }
+    $fallbacks: nth($argsFallbacks, $fallbacksNb);
+    @if $fallbacksNb > 1 {
+      @for $index from $fallbacksNb - 1 through 1 {
+        $fallbacks: var(--#{nth($argsFallbacks, $index)}, #{$fallbacks});
+      }
+    }
+    @return var(--#{$propertyName}, $fallbacks);
+  }
+/*
+Eg:
+  :root {
+    --accent-color: #f545d9;
+  }
+  div {
+    color: v(accent-color, red); // Second argument is optional.
+  }
+
+  The generated CSS code :
+div {
+  color: var(--accent-color, red);
+}
+
+*/
+
+//Generate a box or a rectangle just pass the size
+@mixin box($width, $height: $width) {
+    width: $width;
+    height: $height;
+}
+
+//Flexbox utilities
+@mixin flex-column {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  @mixin flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  @mixin flex-center-column {
+    @include flex-center;
+    flex-direction: column;
+  }
+  
+  @mixin flex-center-vertical {
+    display: flex;
+    align-items: center;
+  }
+  
+  @mixin flex-center-horizontal {
+    display: flex;
+    justify-content: center;
+  }
+  
+//Font sizes
+  @mixin font-size($font-size, $line-height: normal, $letter-spacing: normal) {
+    font-size: $font-size * 1px;
+    // font-size: $font-size * 0.1rem;
+    // example using rem values and 62.5% font-size so 1rem = 10px
+  
+    @if $line-height==normal {
+      line-height: normal;
+    } @else {
+      line-height: $line-height / $font-size;
+    }
+  
+    @if $letter-spacing==normal {
+      letter-spacing: normal;
+    } @else {
+      letter-spacing: #{$letter-spacing / $font-size}em;
+    }
+  }
+/* ===== Usage ===== 
+p {
+    @include font-size(12, 18, 1.2);
+    // returns
+    font-size: 12px;
+    line-height: 1.5; // 18 / 12
+    letter-spacing: 0.1em;
+  }  
+*/
+
+//Mixin for adding font face
+@mixin font-face($font-name, $path, $weight: normal, $style: normal) {
+    @font-face {
+      font-family: quote($font-name);
+      src: url($path+".eot");
+      src: url($path+".eot?#iefix") format("embedded-opentype"), url($path+".woff")
+          format("woff"), url($path+".ttf") format("truetype"), url($path+".svg##{$font-name}")
+          format("svg");
+      font-weight: $weight;
+      font-style: $style;
+    }
+  }
+  
+  /* ===== Usage ===== 
+  @include font-face(Roboto, "./assets/Roboto", normal, normal);
+   */
+
+//Mixin for cover background image
+    @mixin cover-background {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    }
+
+//supporting retina-ready images you can serve to Apple devices with a Retina Display
+    @mixin retina-image($image, $width, $height) {
+        @media (min--moz-device-pixel-ratio: 1.3),
+        (-o-min-device-pixel-ratio: 2.6/2),
+        (-webkit-min-device-pixel-ratio: 1.3),
+        (min-device-pixel-ratio: 1.3),
+        (min-resolution: 1.3dppx) {
+            background-image: url($image);
+            background-size: $width $height;
+        }
+     }
+    /* Eg.
+    .image {
+        background: url("my-image.png") no-repeat;
+        @include retina-image("my-image2x.png", 1000px, 500px);
+    }
+    */
+
+    /* Defining a color theme to use throughout your site helps save time on having the same colored portions of CSS on the same HTML elements. If you want all your div buttons to have a 1px solid dotted border, then you can easily add this to your theme. This Sass mixin will allow you to set as many color variables as you want, and to affect as many classes as you would like. This can be a useful tool to provide color options for something, or any time you have a feature that affects the color of many elements at once. */
+
+
+    @mixin theme($name, $color) {
+        // Define colors in your theme
+        $primary: $color;
+        $secondary: lighten(adjust-hue($color, 20), 10%);
+        // Add your classes with css colors added
+        .#{$name} {
+          .element {
+            color: $primary;
+          }
+          .other-element {
+            background: $secondary;
+          }
+        }
+      }
+
+      //add prefix for animations
+      @mixin keyframes($animation-name) {
+        @-webkit-keyframes #{$animation-name} {
+            @content;
+        }
+        @-moz-keyframes #{$animation-name} {
+            @content;
+        }  
+        @-ms-keyframes #{$animation-name} {
+            @content;
+        }
+        @-o-keyframes #{$animation-name} {
+            @content;
+        }  
+        @keyframes #{$animation-name} {
+            @content;
+        }
+    }
+
+ 
+
+@mixin gencolors($allcolors) {
+  @each $color-name, $color in $allcolors {
+    --color-#{$color-name}-lightest: #{mix(white, $color, 30%)};
+    --color-#{$color-name}-lighter: #{mix(white, $color, 10%)};
+    --color-#{$color-name}-darker: #{mix(black, $color, 10%)};
+    --color-#{$color-name}-darkest: #{mix(black, $color, 30%)};
+  }
+}
+
+
+
+// Another format for generating media queries:
+// $breakpoints: (
+//     "phone":        400px,
+//     "phone-wide":   480px,
+//     "phablet":      560px,
+//     "tablet-small": 640px,
+//     "tablet":       768px,
+//     "tablet-wide":  1024px,
+//     "desktop":      1248px,
+//     "desktop-wide": 1440px
+// );
+// @mixin mq($width, $type: min) {
+//     @if map_has_key($breakpoints, $width) {
+//         $width: map_get($breakpoints, $width);
+//         @if $type == max {
+//             $width: $width - 1px;
+//         }
+//         @media only screen and (#{$type}-width: $width) {
+//             @content;
+//         }
+//     }
+// }
+
+// eg. .site-header {
+//     padding: 2rem;
+//     font-size: 1.8rem;
+//     @include mq('tablet-wide') {
+//         padding-top: 4rem;
+//         font-size: 2.4rem;
+//     }
+// }
+
+
+
+// MEDIA QUERY MANAGER
+/*
+0 - 600px:      Phone
+600 - 900px:    Tablet portrait
+900 - 1200px:   Tablet landscape
+[1200 - 1800] is where our normal styles apply
+1800px + :      Big desktop
+$breakpoint arguement choices:
+- phone
+- tab-port
+- tab-land
+- big-desktop
+ORDER: Base + typography > general layout + grid > page layout > components
+1em = 16px
+*/
+@mixin respond($breakpoint) {
+    @if $breakpoint == phone {
+        @media only screen and (max-width: 37.5em) { @content };    //600px
+    }
+    @if $breakpoint == tab-port {
+        @media only screen and (max-width: 56.25em) { @content };     //900px
+    }
+    @if $breakpoint == tab-land {
+        @media only screen and (max-width: 75em) { @content };    //1200px
+    }
+    @if $breakpoint == big-desktop {
+        @media only screen and (min-width: 112.5em) { @content };    //1800
+    }
+}
+
+@mixin for-phone-only {
+    // @media (max-width: #{map.get($grid-breakpoints, "sm")}) {
+    //   @content;
+    // }
+    @media (max-width: 599px) {
+      @content;
+    }
+  }
+  @mixin for-tablet-portrait-up {
+    @media (min-width: 600px) {
+      @content;
+    }
+  }
+  @mixin for-tablet-portrait-only {
+    @media (min-width: 600px) and (max-width: 899px) {
+      @content;
+    }
+  }
+  @mixin for-tablet-landscape-up {
+    @media (min-width: 900px) {
+      @content;
+    }
+  }
+  @mixin for-tablet-landscape-only {
+    @media (min-width: 900px) and (max-width: 1199px) {
+      @content;
+    }
+  }
+  @mixin for-desktop-up {
+    @media (min-width: 1200px) {
+      @content;
+    }
+  }
+  @mixin for-desktop-only {
+    @media (min-width: 1200px) and (max-width: 1799px) {
+      @content;
+    }
+  }
+  @mixin for-big-desktop-up {
+    @media (min-width: 1800px) {
+      @content;
+    }
+  }
+
+  //use like this: @include for-<name> { some styles }
+
+  // edit font rendering -> tip: use for light text on dark backgrounds
+@mixin fontSmooth {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+
+
+

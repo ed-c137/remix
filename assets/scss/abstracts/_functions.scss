@@ -1,0 +1,15 @@
+@mixin color-modifiers {
+    @each $name, $hex in $colors {
+        @each $vald, $pctd in $stepintdn {
+            &-#{$name}-#{$vald} {
+                color: lighten($hex, $pctd);
+            }
+        }
+        @each $valu, $pctu in $stepintup {
+            &-#{$name}-#{$valu} {
+                color: darken($hex, $pctu);
+            }
+        }
+        
+    }
+}

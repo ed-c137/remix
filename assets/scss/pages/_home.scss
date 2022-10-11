@@ -1,0 +1,475 @@
+///////===========Layout===============//////////@at-root
+.navbar{
+    justify-content: space-between;
+    // .navbar__logo img{
+    //     height: 36px;
+    // }
+}
+header.main{
+    padding-top: 30px;
+}
+
+
+
+
+.button-wrap{
+    margin: 38px 0;
+}
+
+article{
+    margin-bottom: 3rem;
+}
+
+
+
+.btn{
+    padding: 16px 24px;
+    @include fontB;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 19px;
+    border: none;
+    
+    background-color: v(btn-background);
+    color: v(white);
+    
+    //efect for button press
+    transition-duration: .2s;
+    perspective: 1000px;
+    transform-origin: center bottom 0px;
+    transform: matrix(1, 0, 0, 1, 0, 0);
+    // @include media-breakpoint-up(sm){
+    //     width: auto;
+    // }
+}
+.btn:active {
+    transform: matrix(0.95, 0, 0, 0.95, 0, 0);
+}
+
+.btnA{
+    background: v(color-primary);
+    color: v(black);
+    cursor: pointer;
+    text-decoration: none;
+    line-height: 1.2;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    transition: all 0.2s ease;
+    will-change: transform;
+    padding: 18px 24px;
+    font-size: 18px;
+    font-weight: 700;
+    @include fontA;
+    border-radius: var(--radius-md, 3px);
+    span{
+        vertical-align: super;
+    }
+}
+
+.btnA:hover,
+.btnA:focus{
+    background: hsla(48, 100%, 75%, 1);
+}
+
+.btnA:active{
+    transform: translateY(2px);
+}
+
+.btn-user-box{
+    padding: 3px 4px;
+    font-size: 18px;
+    border-radius: 2px;
+    &:hover{
+        background-color: v(content-background);
+    }
+}
+
+.companies{
+    padding: 10px 0 ;
+    flex-wrap: wrap;
+}
+
+.jobs{
+    >:not(:last-child){
+        margin-bottom:24px;
+    }
+    .job-item{
+        padding: 24px;
+        background: v(content-background);
+        > a > div:first-child > :last-child{
+        //    margin-bottom: 24px;
+        margin-left: 17px;
+        // background: cadetblue;
+        }
+        > a > div:first-child {
+            margin-bottom: 24px;
+        }
+
+        .tag{
+            padding: 10px;
+            background: v(app-background);
+            text-transform: capitalize;
+        }
+        
+    }
+}
+.location{
+    color: v(text-muted);
+}
+
+.job-item-wrapper{
+    .job-item-header{
+        padding: 32px 20px;
+        background-color: v(content-background);
+    }
+    .job-item-body{
+       
+        background-color: v(content-background);
+        .job-item-more-info{
+            padding: 32px 20px;
+            background-color: v(app-background);
+            >:not(:first-child){
+                padding-left: 15px;
+            }
+            .item{
+                color: v(text-muted);
+            }
+        
+        }
+        .company-desc{
+            padding: 32px 20px;
+            h2{
+                padding-bottom:16px;
+            }
+        }
+        .job-requirements{
+            padding: 0 20px 32px;
+            h2{
+                padding-bottom:16px;
+            }
+        }
+        .job-apply-btn{
+            background: v(color-secondary);
+            margin: 32px 20px;
+        }
+    }
+}
+
+#filter{
+    border: none;
+    > div:not(:last-child){
+        margin-bottom: 56px;
+    }
+    .box{
+        .box-label{
+            margin-bottom: 16px;
+        }
+    }
+    .tick{
+        // input[type=checkbox]{
+        //     width: 18px;
+        //     height: 18px;
+
+        //     accent-color: #0dcd7d;
+        //     border: 1px solid #8F9BB3;
+        //     border-radius: 2px;
+        // }
+        // input[type=checkbox]:checked::before {
+        //     width: 18px;
+        //     height: 18px;
+        //     background-color: #00AEEF;
+        //   }
+        // input[type=checkbox] {
+        //     position: relative;
+        //     cursor: pointer;
+        //   }
+          
+        //   input[type=checkbox]:before {
+        //     content: "";
+        //     position: absolute;
+        //     width: 16px;
+        //     height: 16px;
+        //     top: 0;
+        //     left: 0;
+        //     border: 1px solid #ab5c07;
+        //     border-radius: 3px;
+        //     padding: 1px;
+        //     background-color: #ac9c0a;
+        //   }
+          
+        //   input[type=checkbox]:checked:before {
+        //     background-color: #00AEEF;
+        //   }
+          
+        //   input[type=checkbox]:checked:after {
+        //     content: "";
+        //     display: block;
+        //     width: 5px;
+        //     height: 10px;
+        //     border: solid rgb(220, 20, 224);
+        //     border-width: 0 2px 2px 0;
+        //     -webkit-transform: rotate(45deg);
+        //     -ms-transform: rotate(45deg);
+        //     transform: rotate(45deg);
+        //     position: absolute;
+        //     top: 2px;
+        //     left: 6px;
+        //   }
+    }
+
+    .tick {
+        display: block;
+        position: relative;
+        padding-left: 35px;
+        margin-bottom: 12px;
+        cursor: pointer;
+        font-size: 22px;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+
+         /* Hide the browser's default checkbox */
+       & input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 0;
+            width: 0;
+          }
+          
+      }
+      
+      /* Create a custom checkbox */
+      .check {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 18px;
+        width: 18px;
+        border-radius: 2px;
+        background-color: v(app-background);
+        border: 2px v(text-muted) solid;
+      }
+      
+      /* On mouse-over, add a grey background color */
+      .tick:hover input ~ .check {
+        background-color: v(content-background);
+        // border: 2px blue solid;
+      }
+      
+      /* When the checkbox is checked, add a blue background */
+      .tick input:checked ~ .check {
+        background-color: #002B4E;
+      }
+      
+      /* Create the check/indicator (hidden when not checked) */
+      .check:after {
+        content: "";
+        position: absolute;
+        display: none;
+      }
+      
+      /* Show the checkmark when checked */
+      .tick input:checked ~ .check:after {
+        display: block;
+      }
+      
+      /* Style the checkmark/indicator */
+      .tick .check:after {
+        height: 10px;
+        left: 4px;
+        top: 1px;
+        width: 5px;
+        border: solid white;
+        border-width: 0 2px 2px 0;
+        -webkit-transform: rotate(35deg);
+        -ms-transform: rotate(35deg);
+        transform: rotate(35deg);
+      }
+}
+
+.hero-section{
+    .never-highlight{
+        top: 6px;
+        left: -8px;
+    }
+    p{
+        margin-top: 18px;
+        margin-bottom: 24px;
+    }
+    margin-bottom: 81px;
+}
+
+.collab-section{
+    p{
+        margin-top: 18px;
+        margin-bottom: 24px;
+    }
+    .link-more{
+        display: inline-block;
+        color: v(color-primary);
+        font-weight: 700;
+        font-size: 18px;
+        line-height: 23px;
+        text-decoration: underline;
+        margin-bottom: 32px;
+        &::after{
+           display: inline-block;
+           content: url(../../../assets/img/arrow-left.svg);
+           height: 15px;
+           width: 15px;
+           font-size: 0.7rem;
+           color: v(color-primary);
+           text-decoration: underline;
+        }
+     }
+     margin-bottom: 81px;
+}
+
+.testimonial-section{
+    >p{
+        margin: 18px 0;
+    }
+    
+    .rating{
+        font-size: 18px;
+        line-height: 23px;
+        .value{
+            color: v(light);
+            font-weight: 700;
+        }
+        .text{
+            color: v(color-p);
+            font-weight: 400;
+        }
+        >*:last-child{
+            margin-left: 16px;
+            width: 26px;
+            height: 26px;
+        }
+    }
+    .users{
+        font-size: 18px;
+        line-height: 23px;
+        .value{
+            color: v(light);
+            font-weight: 700;
+        }
+        .text{
+            color: v(color-p);
+            font-weight: 400;
+        }
+        ul>li:not(:first-child){
+            margin-left: -22px;
+            img{
+                border: solid 1.5px hsl(223, 3%, 13%);
+                border-radius: 50%;
+            }
+        }
+        >*:last-child{
+            margin-left: 16px;
+        }
+    }
+
+    .user-img{
+        width: 60px;
+        height: 60px;
+    }
+    .testimonials{
+        padding: 32px 0;
+        >*:not(:first-child){
+            margin-top:24px;
+        }
+        >*:nth-child(odd){
+            margin-left: 30px;
+        }
+        >*:nth-child(even){
+            margin-left: auto;   
+        }
+    }
+    .testimonial{
+        background: v(color-testi-bg);
+        @include fontA;
+        font-size: 11px;
+        line-height: 15px;
+        // margin-left: 36px;
+        // margin-right: 24px;
+        position: relative;
+        padding: 18px 43px;
+        border-radius: 6px;
+        width: 68%;
+        >p{
+            // padding: 0px 43px 0px;
+            color: v(color-testi-p);
+        }
+        >img{
+            margin-left: -73px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        .test-user{
+            // padding-left:43px;
+            display: inline-block;
+            padding-top: 10px;
+            font-weight: 500;
+            color: v(light);
+        }
+        .testimonial-rating{
+            // padding-left:43px;
+            >li>img{
+                height: 10px;
+                width: 10px;
+            }
+        }
+    }
+}
+
+
+.newsletter-section{
+    background: v(color-primary);
+    padding-top: 63px;
+    h1{
+        color: v(dark);
+    }
+    p{
+        color: v(color-secondary);
+        padding-top: 8px;
+        padding-bottom: 16px;
+    }
+    img{
+        margin-bottom: -8px;
+    }
+    form{
+        margin-bottom: 32px;
+        .form-group{
+            >*:not(:first-child){
+                margin-top: 8px;
+            }
+            input{
+                width: 100%;
+                padding: 18px 64px 18px 36px;
+                border: none;
+                transition: all .2s;
+                border-radius: 5px;
+                @include fontB;
+                font-weight: 400;
+                font-size: 18px;
+                line-height: 23px;
+                &:focus{
+                    border: 10px solid black;
+                }
+            }
+            button{
+                width: 100%;
+                padding: 18px 24px;
+                border-radius: 5px;
+                background: v(color-secondary);
+            }
+        }
+    }
+}
+
+.pricing-section{
+    
+}
