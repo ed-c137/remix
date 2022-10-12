@@ -1,0 +1,38 @@
+footer{
+    .footer-main{
+        padding: 20px 20px 24px;
+        background:v(color-primary);
+        color: v(color-secondary);
+        p{
+            margin: 16px 0 37px;
+            color: v(color-secondary);
+        }
+        .footer-menu{
+            h3{
+                font-weight: 700;
+                font-size: 20px;
+                line-height: 24px;
+                color: v(black);
+            }
+            ul{
+               a{
+                font-weight: 400;
+                font-size: 18px;
+                line-height: 27px;
+                color: v(color-secondary);
+               } 
+            }
+        }
+    }
+    .bottom-footer{
+        padding: 10px 20px;
+        background: v(color-secondary);
+        color: v(color-primary);
+        .mail-to{
+            color: v(color-primary);
+        }
+        ul li{
+            width: 20px;
+        }
+    }
+}

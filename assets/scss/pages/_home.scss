@@ -422,6 +422,9 @@ article{
                 width: 10px;
             }
         }
+        @include media-breakpoint-up(xl){
+            max-width: 400px;
+        }
     }
 }
 
@@ -456,8 +459,13 @@ article{
                 font-weight: 400;
                 font-size: 18px;
                 line-height: 23px;
-                &:focus{
-                    border: 10px solid black;
+                border: 2px solid transparent;
+                &:focus,&:focus-visible{
+                    border: 2px solid black;
+                    outline: none;
+                }
+                &::-moz-focus-inner { //to remove the puseudo element for firefox only
+                    border: 0;
                 }
             }
             button{
@@ -465,11 +473,78 @@ article{
                 padding: 18px 24px;
                 border-radius: 5px;
                 background: v(color-secondary);
+                border: 2px solid transparent;
+                &::-moz-focus-inner { //to remove the puseudo element for firefox only
+                    border: 0;
+                }
+            }
+            @include media-breakpoint-up(md) {
+                input, button{
+                    width: auto;
+                }
+                button{
+                    padding: 20px 24px;
+                }
+                >*:not(:first-child){
+                    margin-top: 0px;
+                }
+             }
+
+        }
+    }
+    @include media-breakpoint-up(xl) {
+        .form-group{
+            >*:not(:first-child){
+                margin-left: 10px;
             }
         }
     }
 }
 
 .pricing-section{
-    
+    padding-bottom: 40px;
+    padding-top: 40px;
+    .pricing-card{
+        margin: 0 20px;
+        padding: 36px;
+        color: $gray-lighter;
+
+        .price-u{
+            @include fontA;
+            font-weight: 500;
+            >*:first-child{
+                font-size: 56px;
+                line-height: 71px;
+            }
+            >*:last-child{
+                font-size: 18px;
+                line-height: 22px;
+                color: hsla(223, 13%, 67%, 1);
+            }
+        }
+        p{
+            color: $gray-lighter;
+            margin: 8px 0 24px;
+        }
+        ul{
+            @include fontA;
+            font-weight: 400;
+            font-size: 18px;
+            line-height: 22px;
+            >*:not(:last-child){
+                margin-bottom: 16px;
+            }
+            margin-bottom: 25px;
+        }
+        button{
+            background: v(color-primary);
+            color: v(black);
+            width: 100%;
+            border-radius: 5px;
+        }
+    }
+    .active-select{
+        background: v(gray-darker);
+        border-radius: 10px;
+    }
 }

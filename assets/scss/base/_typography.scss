@@ -44,45 +44,44 @@ body {
     @include fontA;
     font-weight: v(font-weight, 700);
     font-size: 56px;
-    line-height: 71px;
+    line-height: v(line-height, 71px);
     color:v(color-h1);
 }
 .title-secondary{
     @include fontA;
     font-weight: v(font-weight, 700);
     font-size: 36px;
-    line-height: 46px;
+    line-height: v(line-height, 46px);
     color:v(color-h1);
 }
 
 
 .subtitle-primary{
     @include fontA;
-    font-weight: v(font-weight, 400);
-    font-size: 36px;
-    line-height: 46px;
-   
+    font-weight: v(font-weight, 500);
+    font-size: 18px;
+    line-height:v(line-height, 22px);
 }
 .subtitle-secondary{
     @include fontB;
-    font-weight: 700;
+    font-weight:v(font-weight, 700);
     font-size: 18px;
-    line-height: 25px;
+    line-height: v(line-height, 25px);
 }
 
 .p-primary{
     @include fontB;
-    font-weight: 400;
+    font-weight: v(font-weight, 400);
     font-size: 18px;
-    line-height: 27px;
+    line-height: v(line-height, 27px);
     color: v(color-p);
 }
 
 .p-secondary{
     @include fontB;
-    font-weight: 400;
+    font-weight: v(font-weight, 400);
     font-size: 16px;
-    line-height: 20px;
+    line-height: v(line-height, 20px);
 }
 // .heading-primary {
 //     color: $color-white;

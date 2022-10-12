@@ -3,14 +3,17 @@
         @include media-breakpoint-up(xl){
             margin-bottom: 50px;
         }
-        @include media-breakpoint-up(lg){
-            .navbar__nav .navbar__nav-list{
-                left: -25%;
-            }
-            > * {
-               flex: 1;
-            }
-        }
+        // @include media-breakpoint-up(lg){
+        //     .navbar__nav .navbar__nav-list{
+        //         left: -25%;
+        //     }
+        //     > * {
+        //        flex: 1;
+        //     }
+        // }
+    }
+    @include media-breakpoint-up(lg){
+        
     }
 }
 
@@ -24,6 +27,7 @@
     padding: inherit;
     background: white;
     top:50px;
+    
     &-list{
         font-weight: 400;
         font-size: 16px;
@@ -59,10 +63,14 @@
     }
     &-item {
         padding: 10px 0;
+        align-self: center;
+        flex-shrink: 0;
         a{
+            @include fontA;
             color: v(text-muted);
         }
     }
+    
     
     @include media-breakpoint-up(xl){
         
@@ -80,12 +88,17 @@
     .sign-in{
         display: block;
         margin: auto;
+        color:black; 
+        top:0;
+        left: 0;
+        @include fontA;
     }
 
     .mode-switch{
         background: v(dark);
         border-radius: 5px;
         margin: 10px 0;
+        @include fontA;
         >*:not(:first-child){
             margin-left: 10px;
         }
@@ -120,6 +133,33 @@
         }
 
         
+    }
+    @include media-breakpoint-up(lg){
+        max-height: 400px;
+        flex-direction: row;
+        top:0px;
+        overflow: visible;
+        padding: 0;
+        flex: 1;
+        background: none;
+        &-list{
+            overflow: visible;
+            margin-left: 10px;
+        }
+        &-item {
+            a{
+                color: v(color-p);
+            }
+        }
+        .sign-in{
+            color: v(color-p);
+            padding-left: 24px !important;
+            padding-right:24px !important;
+            display: inline-block;
+        }
+        .mode-switch{
+            margin: 0;
+        }
     }
 }
 .navbar-open{
